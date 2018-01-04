@@ -107,7 +107,8 @@ module.exports.computeAveragePrice = function (minCost, minRAM, value, averageDu
     // quantize price to upper 100ms (billed duration) and compute avg price
     const averagePrice = Math.ceil(averageDuration / 100) * pricePer100ms;
     // console.log('avg price: ', averagePrice);
-    return Promise.resolve(averagePrice);
+    // return Promise.resolve(averagePrice);
+    return Promise.resolve({"price": averagePrice, "duration": averageDuration});
 };
 
 /**
@@ -151,7 +152,7 @@ module.exports.computeAverageDuration = function (results) {
  */
 module.exports.extractDuration = function (log) {
     // extract duration from log (anyone can suggest a regex?)
-    const durationSplit = log.split('\tDuration: ');
+    const durationSplit = log.split('\tBilled Duration: ');
     if (durationSplit.length < 2) return 0;
 
     const durationStr = durationSplit[1].split(' ms')[0];

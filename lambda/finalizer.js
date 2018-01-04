@@ -15,13 +15,14 @@ module.exports.handler = (event, context, callback) => {
     const prices = event.map(function(p) {
         return {
             'power': p.value,
-            'cost': p.price
+            'cost': p.result.price,
+            'score': p.result.score
         };
     });
 
     // sort by cost
     prices.sort(function(p1, p2){
-        return p1.cost - p2.cost;}
+        return p1.score - p2.score;}
     );
 
     console.log(prices);  // logging is free, right?
